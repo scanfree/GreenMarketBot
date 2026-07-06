@@ -8,6 +8,6 @@ BOT_USERNAME = "@GreenmarketAIbot"
 
 TOKEN = "8625984154:AAE-9AicsOdASFTAd-jd37uTEtV8JRgCepM"
 
-OWNER = "Kenneth"
+OWNER = "scanfree"
 
 VERSION = "1.0"
