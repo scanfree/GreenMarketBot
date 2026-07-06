@@ -4,28 +4,32 @@ from telegram.ext import Application, CommandHandler, ContextTypes
 from config import TOKEN, BOT_NAME
 from signal_engine import analyze_market
 
-# -------------------------
+
+# ==========================
 # START COMMAND
-# -------------------------
+# ==========================
 async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
     await update.message.reply_text(
-        f"""🟢 Welcome to {BOT_NAME}
+        f"""
+🟢 Welcome to {BOT_NAME}
 
 AI Smart Money Concepts Trading Bot
 
 Available Commands:
 
+/start
 /help
 /status
 /analyze XAUUSD
 
-More features are coming soon...
+More features coming soon...
 """
     )
 
-# -------------------------
+
+# ==========================
 # HELP COMMAND
-# -------------------------
+# ==========================
 async def help_command(update: Update, context: ContextTypes.DEFAULT_TYPE):
     await update.message.reply_text(
         """
@@ -38,37 +42,42 @@ async def help_command(update: Update, context: ContextTypes.DEFAULT_TYPE):
 """
     )
 
-# -------------------------
+
+# ==========================
 # STATUS COMMAND
-# -------------------------
+# ==========================
 async def status(update: Update, context: ContextTypes.DEFAULT_TYPE):
     await update.message.reply_text(
         """
 🟢 Green Market
 
-Status: ONLINE
+Status: ONLINE ✅
 Version: 1.0
 
 Everything is working correctly.
 """
     )
 
-# -------------------------
+
+# ==========================
 # ANALYZE COMMAND
-# -------------------------
+# ==========================
 async def analyze(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
-    if len(context.args) == 0:
-        await update.message.reply_text("Usage:\n/analyze XAUUSD")
+    if not context.args:
+        await update.message.reply_text(
+            "Usage:\n/analyze XAUUSD"
+        )
         return
 
-    symbol = context.args[0]
+    symbol = context.args[0].upper()
+
     result = analyze_market(symbol)
 
     text = f"""
-📊 Market Analysis
+📊 GREEN MARKET AI
 
-Symbol: {symbol.upper()}
+Symbol: {symbol}
 
 Trend: {result['trend']}
 BOS: {result['bos']}
@@ -76,18 +85,19 @@ CHOCH: {result['choch']}
 FVG: {result['fvg']}
 Liquidity: {result['liquidity']}
 
-Entry: {result['entry']}
-Stop Loss: {result['sl']}
-Take Profit: {result['tp']}
+📍Entry: {result['entry']}
+🛑Stop Loss: {result['sl']}
+🎯Take Profit: {result['tp']}
 
 Confidence: {result['confidence']}
 """
 
     await update.message.reply_text(text)
 
-# -------------------------
+
+# ==========================
 # MAIN
-# -------------------------
+# ==========================
 def main():
     app = Application.builder().token(TOKEN).build()
 
@@ -96,9 +106,10 @@ def main():
     app.add_handler(CommandHandler("status", status))
     app.add_handler(CommandHandler("analyze", analyze))
 
-    print("🟢 Green Market Bot Started...")
+    print("Green Market Bot is running...")
 
     app.run_polling()
+
 
 if __name__ == "__main__":
     main()
