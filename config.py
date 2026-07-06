@@ -6,7 +6,7 @@ BOT_NAME = "Green Market"
 
 BOT_USERNAME = "@GreenmarketAIbot"
 
-TOKEN = ":AAE-9AicsOdASFTAd-jd37uTEtV8JRgCepM"
+TOKEN = "8625984154:AAE-9AicsOdASFTAd-jd37uTEtV8JRgCepM"
 
 OWNER = "Kenneth"
 
